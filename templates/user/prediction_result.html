@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Prediction Result - Crop Yield Prediction{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header" style="background-color: var(--main-color); color: white;">
+        <h3 class="mb-0">Prediction Result</h3>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-success">
+            <h4 class="alert-heading">Prediction Complete!</h4>
+            <p>Based on your inputs, the recommended crop is <strong>{{ prediction.predicted_crop }}</strong>.</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Your Input Values</h4>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Nitrogen Content</th>
+                            <td>{{ prediction.nitrogen }}%</td>
+                        </tr>
+                        <tr>
+                            <th>Phosphorous Content</th>
+                            <td>{{ prediction.phosphorous }}%</td>
+                        </tr>
+                        <tr>
+                            <th>Potash Content</th>
+                            <td>{{ prediction.potash }}%</td>
+                        </tr>
+                        <tr>
+                            <th>Rainfall</th>
+                            <td>{{ prediction.rainfall }} mm</td>
+                        </tr>
+                        <tr>
+                            <th>Temperature</th>
+                            <td>{{ prediction.temperature }}°C</td>
+                        </tr>
+                        <tr>
+                            <th>Soil pH</th>
+                            <td>{{ prediction.soil_ph }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="col-md-6">
+                {% if crop %}
+                <h4>{{ crop.name }} Details</h4>
+                {% if crop.image %}
+                <img src="{{ crop.image.url }}" alt="{{ crop.name }}" class="img-fluid rounded mb-3" style="max-height: 200px;">
+                {% endif %}
+                
+                <p>
+                    <strong>Ideal Conditions:</strong><br>
+                    Nitrogen: {{ crop.nitrogen }}%<br>
+                    Phosphorous: {{ crop.phosphorous }}%<br>
+                    Potash: {{ crop.potash }}%<br>
+                    Rainfall: {{ crop.rainfall }} mm<br>
+                    Temperature: {{ crop.temperature }}°C<br>
+                    Soil pH: {{ crop.soil_ph }}
+                </p>
+                
+                {% if crop.description %}
+                <p>{{ crop.description }}</p>
+                {% endif %}
+                
+                <a href="{% url 'crop_details' crop.id %}" class="btn btn-info">View Full Details</a>
+                {% else %}
+                <div class="alert alert-warning">
+                    Detailed information for {{ prediction.predicted_crop }} is not available.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'crop_prediction' %}" class="btn btn-primary" style="background-color: var(--main-color); border-color: var(--main-color);">Make Another Prediction</a>
+            <a href="{% url 'user_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

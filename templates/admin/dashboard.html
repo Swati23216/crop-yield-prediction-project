@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Crop Yield Prediction{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header" style="background-color: var(--main-color); color: white;">
+        <h3 class="mb-0">Admin Dashboard</h3>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4>Crop Dataset</h4>
+            <a href="{% url 'add_crop' %}" class="btn btn-primary" style="background-color: var(--main-color); border-color: var(--main-color);">Add New Crop</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Crop Name</th>
+                        <th>Nitrogen (%)</th>
+                        <th>Phosphorous (%)</th>
+                        <th>Potash (%)</th>
+                        <th>Rainfall (mm)</th>
+                        <th>Temperature (°C)</th>
+                        <th>Soil pH</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for crop in crops %}
+                    <tr>
+                        <td>{{ crop.id }}</td>
+                        <td>{{ crop.name }}</td>
+                        <td>{{ crop.nitrogen }}</td>
+                        <td>{{ crop.phosphorous }}</td>
+                        <td>{{ crop.potash }}</td>
+                        <td>{{ crop.rainfall }}</td>
+                        <td>{{ crop.temperature }}</td>
+                        <td>{{ crop.soil_ph }}</td>
+                        <td>
+                            <a href="{% url 'update_crop' crop.id %}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{% url 'delete_crop' crop.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="9" class="text-center">No crop data available. Please add crop data.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

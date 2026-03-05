@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Crop Review - Crop Yield Prediction{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header" style="background-color: var(--main-color); color: white;">
+        <h3 class="mb-0">Crop Review</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            {% for crop in crops %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if crop.image %}
+                    <img src="{{ crop.image.url }}" class="card-img-top" alt="{{ crop.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top bg-light d-flex justify-content-center align-items-center" style="height: 200px;">
+                        <span class="text-muted">No Image</span>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ crop.name }}</h5>
+                        <p class="card-text">
+                            <strong>Nutrients:</strong> N: {{ crop.nitrogen }}%, P: {{ crop.phosphorous }}%, K: {{ crop.potash }}%
+                        </p>
+                        <a href="{% url 'crop_details' crop.id %}" class="btn btn-primary" style="background-color: var(--main-color); border-color: var(--main-color);">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    No crops available. Please check back later.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

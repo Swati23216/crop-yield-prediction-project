@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Crop - Crop Yield Prediction{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header" style="background-color: var(--main-color); color: white;">
+                <h3 class="mb-0">Add New Crop</h3>
+            </div>
+            <div class="card-body">
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.name.id_for_label }}" class="form-label">Crop Name</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.name.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.image.id_for_label }}" class="form-label">Crop Image</label>
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.image.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.nitrogen.id_for_label }}" class="form-label">Nitrogen (%)</label>
+                            {{ form.nitrogen }}
+                            {% if form.nitrogen.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.nitrogen.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.phosphorous.id_for_label }}" class="form-label">Phosphorous (%)</label>
+                            {{ form.phosphorous }}
+                            {% if form.phosphorous.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.phosphorous.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.potash.id_for_label }}" class="form-label">Potash (%)</label>
+                            {{ form.potash }}
+                            {% if form.potash.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.potash.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.rainfall.id_for_label }}" class="form-label">Rainfall (mm)</label>
+                            {{ form.rainfall }}
+                            {% if form.rainfall.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.rainfall.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.temperature.id_for_label }}" class="form-label">Temperature (°C)</label>
+                            {{ form.temperature }}
+                            {% if form.temperature.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.temperature.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.soil_ph.id_for_label }}" class="form-label">Soil pH</label>
+                            {{ form.soil_ph }}
+                            {% if form.soil_ph.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.soil_ph.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                        <div class="text-danger mt-1">
+                            {% for error in form.description.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary" style="background-color: var(--main-color); border-color: var(--main-color);">Add Crop</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
